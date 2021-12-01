@@ -15,7 +15,7 @@ def register():
     data = request.json
     
     if not data:
-        return {"error": "Please Provide Required Fields"}, 400
+        return {"message": "Please Provide Required Fields"}, 400
     email = data.get("email")
     password = data.get("password")
     if not email:
@@ -41,7 +41,7 @@ def register():
 def login():
     data = request.json
     if not data:
-        return {"error": "Please Provide Required Fields"}, 400
+        return {"message": "Please Provide Required Fields"}, 400
     email =data.get("email")
     password =data.get("password")
     if not email:
@@ -50,9 +50,9 @@ def login():
         return {"message": "Password is mandatory field"}, 400
     user = User.query.filter(User.email==email).first()
     if not user:
-        return { "error": f"User with email {email} is Not Found" }, 404
+        return { "message": f"User with email {email} is Not Found" }, 404
     if not check_password_hash(user.password, password):
-        return { "error" : "Password or email Missmatch" }, 403
+        return { "message" : "Password or email Missmatch" }, 403
     user = {
         "id": user.id
     }

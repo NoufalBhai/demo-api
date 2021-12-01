@@ -1,4 +1,3 @@
-from os import error
 from flask import (
     Blueprint, request
 )
@@ -9,6 +8,9 @@ from app.utlis import verify_token
 
 bp = Blueprint("main", __name__, url_prefix="/")
 
+@bp.route("/")
+def index():
+    return {"message": "Home"}
 
 
 @bp.route("/profile", methods=("POST",))
@@ -23,7 +25,6 @@ def create_profile():
     
     user_id = data.get("id")
     data = request.json
-    print(request.headers)
     if not data:
         return {"error": "Please Provide mandatory Fields"}, 400
     name = data.get("name")
